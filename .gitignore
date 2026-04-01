@@ -1,0 +1,11 @@
+data/raw/
+data/processed/
+logs/
+renv/library/
+.Rproj.user/
+*.Rhistory
+*.RData
+*.bam
+*.fastq
+*.fastq.gz
+*.fq.gz
