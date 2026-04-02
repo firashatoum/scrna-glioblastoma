@@ -54,7 +54,7 @@ tail -n +2 "${SAMPLE_SHEET}" | while IFS=$'\t' read -r sample_id gsm srr conditi
     prefetch "${srr}" \
         --output-directory "${SAMPLE_DIR}" \
         --progress \
-        2>&1 | tee -a "${LOG_FILE}"
+        2>&1 | tee -a "${LOG_FILE}" || true
 
     # Step 2: fasterq-dump
     echo "  [2/2] Converting to FASTQ..." | tee -a "${LOG_FILE}"
