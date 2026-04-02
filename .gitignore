@@ -9,3 +9,4 @@ renv/library/
 *.fastq
 *.fastq.gz
 *.fq.gz
+config/SraRunTable.csv
