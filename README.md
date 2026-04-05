@@ -52,8 +52,11 @@ Run on GSE182109 published count matrix.
 ```
 
 ### Stage 3 — TCGA Bulk Integration
-08_bulk_integration.R
 TCGAbiolinks download → deconvolution → survival analysis
+
+```text
+08_bulk_integration.R
+```
 
 ### Stage 4 — Nextflow
 Wrapping the bash pipeline for full reproducibility.
