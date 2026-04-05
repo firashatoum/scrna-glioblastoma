@@ -61,7 +61,7 @@ tail -n +2 "${SAMPLE_SHEET}" | while IFS=$'\t' read -r sample_id gsm srr conditi
 
     # Step 2: fasterq-dump
     echo "  [2/2] Converting to FASTQ..." | tee -a "${LOG_FILE}"
-    fasterq-dump "${SAMPLE_DIR}/${srr}/${srr}.sra" \
+    fasterq-dump "${srr}" \
         --outdir "${SAMPLE_DIR}" \
         --split-files \
         --threads 4 \
