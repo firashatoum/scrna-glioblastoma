@@ -36,14 +36,20 @@ which is the correct and standard approach for BAM-deposited datasets.
 
 ### Stage 1 — Bash Preprocessing Pipeline
 Validated on 10x PBMC 3k. Generic and works on any standard 10x FASTQ deposit.
-01_download.sh   →   02_qc.sh   →   03_align.sh
-prefetch +           FastQC +        STARsolo
-fasterq-dump         MultiQC         (align + count)
+
+```text
+01_download.sh  →  02_qc.sh   →  03_align.sh
+prefetch +         FastQC +      STARsolo
+fasterq-dump       MultiQC       (align + count)
+```
 
 ### Stage 2 — Seurat Analysis
 Run on GSE182109 published count matrix.
+
+```text
 01_qc_filtering.R → 02_normalization.R → 03_dimreduction.R → 04_clustering.R
 → 05_annotation.R → 06_deg_analysis.R → 07_trajectory.R
+```
 
 ### Stage 3 — TCGA Bulk Integration
 08_bulk_integration.R
@@ -73,6 +79,7 @@ Wrapping the bash pipeline for full reproducibility.
 ---
 
 ## Repository Structure
+```text
 scrna-glioblastoma/
 ├── config/
 │   ├── sample_sheet.tsv         # GSE182109 — 44 samples
@@ -102,8 +109,9 @@ scrna-glioblastoma/
 │   ├── raw/                     # FASTQs
 │   └── processed/               # count matrices
 └── docs/
-├── SKILL.md                 # project memory and decisions
-└── methods_notes.md         # parameter justifications
+    ├── SKILL.md                 # project memory and decisions
+    └── methods_notes.md         # parameter justifications
+```
 
 ---
 
