@@ -89,7 +89,6 @@ Wrapping the bash pipeline for full reproducibility.
 scrna-glioblastoma/
 ├── config/
 │   ├── sample_sheet.tsv         # GSE182109 — 44 samples
-│   ├── test_sample_sheet.tsv    # PBMC 3k — pipeline validation
 │   └── make_sample_sheet.py     # sample sheet generation script
 ├── pipeline/
 │   ├── 01_download.sh           # SRA download - prefetch + fasterq-dump
@@ -109,8 +108,9 @@ scrna-glioblastoma/
 ├── environment/
 │   └── scrna_env.yml            # conda environment (pinned versions)
 ├── results/
-│   ├── figures/                 # all plots
-│   └── tables/                  # all output tables
+│   ├── qc/                      # FastQC and MultiQC reports
+│   ├── figures/                 # all plots from R analysis
+│   └── tables/                  # all output tables from R analysis
 ├── data/                        # gitignored
 │   ├── raw/                     # FASTQs
 │   └── processed/               # count matrices
