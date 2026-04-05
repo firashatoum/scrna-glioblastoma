@@ -73,12 +73,15 @@ Wrapping the bash pipeline for full reproducibility.
 - **Technology**: 10x Genomics, Illumina HiSeq 4000 + DNBSEQ-G400
 - **Data used**: Published count matrix (GSE182109_RAW.tar, 2.3GB MTX format)
 
-### 10x PBMC 3k — Pipeline Validation
-- **Source**: [10x Genomics public datasets](https://www.10xgenomics.com/datasets/3-k-pb-mc-s-from-a-healthy-donor-1-standard-1-1-0)
-- **Cells**: ~3000 PBMCs from healthy donor
-- **Technology**: 10x Genomics Chromium
-- **Data used**: Raw FASTQs via SRA
-
+### 10x PBMC 1k v3 — Pipeline Validation
+- **Source**: [10x Genomics public datasets](https://www.10xgenomics.com)
+- **Cells**: ~1000 PBMCs from healthy donor
+- **Chemistry**: 10x Chromium v3 (2019, modern paired-end)
+- **Size**: ~5GB
+- **Data used**: Raw paired-end FASTQs, direct download from 10x servers
+- **Note**: 01_download.sh demonstrates the SRA download path for 
+  general use. PBMC 1k FASTQs downloaded directly via wget for 
+  pipeline validation efficiency.
 ---
 
 ## Repository Structure
@@ -128,8 +131,11 @@ cd scrna-glioblastoma
 conda env create -f environment/scrna_env.yml
 conda activate scrna-env
 
-# 3. Validate bash pipeline on PBMC 3k
-bash pipeline/01_download.sh config/test_sample_sheet.tsv data/raw/
+# 3. Download PBMC 1k test FASTQs (pipeline validation)
+mkdir -p data/raw/PBMC_1k
+wget -P data/raw/PBMC_1k \
+    https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_1k_v3/pbmc_1k_v3_fastqs.tar
+tar -xf data/raw/PBMC_1k/pbmc_1k_v3_fastqs.tar -C data/raw/PBMC_1k/
 
 # 4. Run QC
 bash pipeline/02_qc.sh config/test_sample_sheet.tsv data/raw/ results/qc/
