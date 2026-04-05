@@ -1,0 +1,69 @@
+QC started: Sun Apr  5 22:08:53 CEST 2026
+FASTQ directory:  data/raw/PBMC_1k/pbmc_1k_v3_fastqs/
+Output directory:  results/qc/PBMC_1k/
+Running FastQC on R2 reads...
+QC started: Sun Apr  5 22:09:37 CEST 2026
+FASTQ directory: data/raw/PBMC_1k/pbmc_1k_v3_fastqs/
+Output directory:  results/qc/PBMC_1k/
+Running FastQC on R2 reads...
+Found R2 files:
+data/raw/PBMC_1k/pbmc_1k_v3_fastqs/pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+data/raw/PBMC_1k/pbmc_1k_v3_fastqs/pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+application/gzip
+application/gzip
+Started analysis of pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Started analysis of pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 5% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 5% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 10% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 10% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 15% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 15% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 20% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 20% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 25% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 25% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 30% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 30% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 35% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 35% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 40% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 40% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 45% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 45% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 50% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 50% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 55% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 55% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 60% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 60% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 65% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 65% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 70% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 70% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 75% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 75% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 80% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 80% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 85% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 85% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 90% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 90% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Approx 95% complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Approx 95% complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+Analysis complete for pbmc_1k_v3_S1_L001_R2_001.fastq.gz
+Analysis complete for pbmc_1k_v3_S1_L002_R2_001.fastq.gz
+FastQC complete.
+Running MultiQC...
+
+/// MultiQC 🔍 v1.33
+
+       file_search | Search path: /home/firas/projects/scrna-glioblastoma/ results/qc/PBMC_1k
+            fastqc | Found 2 reports
+     write_results | Data        :  results/qc/PBMC_1k/multiqc_report_data
+     write_results | Report      :  results/qc/PBMC_1k/multiqc_report.html
+           multiqc | MultiQC complete
+MultiQC complete.
+QC completed: Sun Apr  5 22:12:02 CEST 2026
+Results written to:  results/qc/PBMC_1k/
+Open  results/qc/PBMC_1k//multiqc_report.html to view results.

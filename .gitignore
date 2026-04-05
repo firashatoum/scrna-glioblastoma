@@ -10,3 +10,5 @@ renv/library/
 *.fastq.gz
 *.fq.gz
 config/SraRunTable.csv
+results/**/*.zip
+results/**/*.parquet
