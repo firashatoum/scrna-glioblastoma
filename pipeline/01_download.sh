@@ -12,6 +12,8 @@
 
 set -euo pipefail
 
+# Always run from repo root
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
 # Input arguments
 SAMPLE_SHEET="${1:?Usage: bash 01_download.sh <sample_sheet.tsv> <output_dir> [sample_id]}"
 OUTPUT_DIR="${2:?Usage: bash 01_download.sh <sample_sheet.tsv> <output_dir> [sample_id]}"
@@ -52,6 +54,7 @@ tail -n +2 "${SAMPLE_SHEET}" | while IFS=$'\t' read -r sample_id gsm srr conditi
     # Step 1: prefetch
     echo "  [1/2] Prefetching ${srr}..." | tee -a "${LOG_FILE}"
     prefetch "${srr}" \
+        --type sra \
         --output-directory "${SAMPLE_DIR}" \
         --progress \
         2>&1 | tee -a "${LOG_FILE}" || true
@@ -62,6 +65,7 @@ tail -n +2 "${SAMPLE_SHEET}" | while IFS=$'\t' read -r sample_id gsm srr conditi
         --outdir "${SAMPLE_DIR}" \
         --split-files \
         --threads 4 \
+        --temp "${SAMPLE_DIR}" \
         2>&1 | tee -a "${LOG_FILE}"
 
     # Compress the FASTQs
