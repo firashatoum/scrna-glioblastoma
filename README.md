@@ -57,6 +57,10 @@ TCGAbiolinks download → deconvolution → survival analysis
 
 ### Stage 4 — Nextflow
 Wrapping the bash pipeline for full reproducibility.
+> **Note on Nextflow:** A generalizable Nextflow wrapper for this pipeline 
+> is maintained as a separate repository: `nextflow-scrna-pipeline` (coming soon).
+> The bash and R scripts in this repo are designed to be fully modular and 
+> reusable as Nextflow process modules.
 
 ---
 
