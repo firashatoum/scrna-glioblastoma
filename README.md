@@ -115,7 +115,6 @@ scrna-glioblastoma/
 │   ├── raw/                     # FASTQs
 │   └── processed/               # count matrices
 └── docs/
-    ├── SKILL.md                 # project memory and decisions
     └── methods_notes.md         # parameter justifications
 ```
 
