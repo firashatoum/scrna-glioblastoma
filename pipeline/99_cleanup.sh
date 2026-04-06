@@ -36,3 +36,31 @@ if [[ -z "${FASTQ_GZ}" ]]; then
 fi
 
 echo "Compressed FASTQs found. Safe to proceed." | tee -a "${LOG_FILE}"
+
+# Remove uncompressed FASTQs if they exist
+echo "Removing uncompressed FASTQs..." | tee -a "${LOG_FILE}"
+find "${SAMPLE_DIR}" -name "*.fastq" -type f | while read -r file; do
+    echo "  Removing: ${file}" | tee -a "${LOG_FILE}"
+    rm -f "${file}"
+done
+
+# Remove SRA files
+echo "Removing SRA files..." | tee -a "${LOG_FILE}"
+find "${SAMPLE_DIR}" -name "*.sra" -type f | while read -r file; do
+    echo "  Removing: ${file}" | tee -a "${LOG_FILE}"
+    rm -f "${file}"
+done
+
+# Remove fasterq-dump temp directories
+echo "Removing temp directories..." | tee -a "${LOG_FILE}"
+find "${SAMPLE_DIR}" -name "fasterq.tmp*" -type d | while read -r dir; do
+    echo "  Removing: ${dir}" | tee -a "${LOG_FILE}"
+    rm -rf "${dir}"
+done
+
+# Report final disk usage
+echo "Cleanup complete." | tee -a "${LOG_FILE}"
+echo "Remaining files in ${SAMPLE_DIR}:" | tee -a "${LOG_FILE}"
+ls -lh "${SAMPLE_DIR}" | tee -a "${LOG_FILE}"
+echo "Disk usage: $(du -sh ${SAMPLE_DIR})" | tee -a "${LOG_FILE}"
+echo "Cleanup completed: $(date)" | tee -a "${LOG_FILE}"
