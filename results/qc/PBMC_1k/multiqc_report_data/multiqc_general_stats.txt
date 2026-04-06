@@ -1,3 +1,0 @@
-Sample	fastqc-percent_duplicates	fastqc-percent_gc	fastqc-avg_sequence_length	fastqc-median_sequence_length	fastqc-percent_fails	fastqc-total_sequences
-pbmc_1k_v3_S1_L001_R2_001	52.32739509122711	45.0	91.0	91	9.090909090909092	33.436696999999995
-pbmc_1k_v3_S1_L002_R2_001	49.773681926512694	45.0	91.0	91	0.0	33.165189999999996

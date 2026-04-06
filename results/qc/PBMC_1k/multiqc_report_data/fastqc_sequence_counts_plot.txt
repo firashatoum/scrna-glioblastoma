@@ -1,3 +1,0 @@
-Sample	Unique Reads	Duplicate Reads
-pbmc_1k_v3_S1_L001_R2_001	15940145.0	17496552.0
-pbmc_1k_v3_S1_L002_R2_001	16657654.0	16507536.0

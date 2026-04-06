@@ -1,3 +1,0 @@
-Module	Section	Sample Name	Source
-FastQC	all_sections	pbmc_1k_v3_S1_L001_R2_001	/home/firas/projects/scrna-glioblastoma/ results/qc/PBMC_1k/pbmc_1k_v3_S1_L001_R2_001_fastqc.zip
-FastQC	all_sections	pbmc_1k_v3_S1_L002_R2_001	/home/firas/projects/scrna-glioblastoma/ results/qc/PBMC_1k/pbmc_1k_v3_S1_L002_R2_001_fastqc.zip

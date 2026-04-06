@@ -13,3 +13,4 @@ config/SraRunTable.csv
 results/**/*.zip
 results/**/*.parquet
 data/reference/
+results/**/multiqc_report_data/
