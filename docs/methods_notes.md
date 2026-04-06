@@ -15,3 +15,16 @@ Parameter decisions and justifications will be documented here as analysis progr
 
 ### Conclusion
 Data passes QC. Proceed directly to STARsolo alignment.
+
+## Reference Genome Choice
+- Assembly: GRCh38 (hg38) — current human reference
+- Annotation: GENCODE v44 — comprehensive, well maintained
+- Why GENCODE over Ensembl: GENCODE includes more non-coding annotations
+  and is the standard for 10x Genomics pipelines
+
+## STARsolo vs CellRanger
+- STARsolo produces identical results to CellRanger
+- STARsolo is open source, no license required
+- STARsolo is faster and more memory efficient
+- CellRanger is the 10x official tool but requires registration
+- For reproducible open science STARsolo is the correct choice
