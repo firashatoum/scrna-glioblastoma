@@ -29,3 +29,25 @@ Data passes QC. Proceed directly to STARsolo alignment.
 - STARsolo is faster and more memory efficient
 - CellRanger is the 10x official tool but requires registration
 - For reproducible open science STARsolo is the correct choice
+
+## STARsolo Alignment Parameters
+
+### Read order
+- R2 (cDNA) passed first, R1 (barcodes) second — STARsolo convention
+- Counterintuitive but required — do not swap
+
+### Chemistry — 10x v3
+- Cell barcode: positions 1-16 in R1 (16bp)
+- UMI: positions 17-28 in R1 (12bp)
+- For v2 chemistry: UMI is only 10bp, adjust --soloUMIlen accordingly
+
+### Cell filtering
+- EmptyDrops_CR used instead of simple UMI threshold
+- Same algorithm as CellRanger — more accurate cell calling
+- Distinguishes real cells from empty droplets statistically
+
+### Output
+- Coordinate-sorted BAM with cell barcode and UMI tags
+- Gene-level count matrix in filtered/ directory
+- filtered/ contains only called cells — use this for Seurat
+- raw/ contains all barcodes including empty droplets
