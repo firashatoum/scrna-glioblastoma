@@ -21,6 +21,7 @@ Data passes QC. Proceed directly to STARsolo alignment.
 - Annotation: GENCODE v44 — comprehensive, well maintained
 - Why GENCODE over Ensembl: GENCODE includes more non-coding annotations
   and is the standard for 10x Genomics pipelines
+- data/reference/ — gitignored (genome index too large for git)
 
 ## STARsolo vs CellRanger
 - STARsolo produces identical results to CellRanger
