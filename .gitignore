@@ -12,3 +12,4 @@ renv/library/
 config/SraRunTable.csv
 results/**/*.zip
 results/**/*.parquet
+data/reference/

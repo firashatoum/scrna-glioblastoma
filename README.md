@@ -35,17 +35,15 @@ which is the correct and standard approach for BAM-deposited datasets.
 ## Pipeline Overview
 
 ### Stage 1 — Bash Preprocessing Pipeline
-Validated on 10x PBMC 3k. Generic and works on any standard 10x FASTQ deposit.
-
+Validated on 10x PBMC 1k v3. Generic and works on any standard 10x FASTQ deposit.
 ```text
-01_download.sh  →  02_qc.sh   →  03_align.sh
-prefetch +         FastQC +      STARsolo
-fasterq-dump       MultiQC       (align + count)
+01_download.sh  →  02_qc.sh  →  03_build_index.sh  →  04_align.sh  →  99_cleanup.sh
+prefetch +         FastQC +      STAR genome           STARsolo          remove
+fasterq-dump       MultiQC       index (run once)      align + count     intermediates
 ```
 
 ### Stage 2 — Seurat Analysis
 Run on GSE182109 published count matrix.
-
 ```text
 01_qc_filtering.R → 02_normalization.R → 03_dimreduction.R → 04_clustering.R
 → 05_annotation.R → 06_deg_analysis.R → 07_trajectory.R
@@ -53,7 +51,6 @@ Run on GSE182109 published count matrix.
 
 ### Stage 3 — TCGA Bulk Integration
 TCGAbiolinks download → deconvolution → survival analysis
-
 ```text
 08_bulk_integration.R
 ```
@@ -93,7 +90,8 @@ scrna-glioblastoma/
 ├── pipeline/
 │   ├── 01_download.sh           # SRA download - prefetch + fasterq-dump
 │   ├── 02_qc.sh                 # FastQC + MultiQC
-│   ├── 03_align.sh              # STARsolo alignment + quantification
+│   ├── 03_build_index.sh        # STAR genome index (run once)
+│   ├── 04_align.sh              # STARsolo alignment + quantification
 │   └── 99_cleanup.sh            # remove intermediate files
 ├── analysis/
 │   ├── 01_qc_filtering.R        # Seurat QC and filtering
@@ -137,12 +135,15 @@ wget -P data/raw/PBMC_1k \
 tar -xf data/raw/PBMC_1k/pbmc_1k_v3_fastqs.tar -C data/raw/PBMC_1k/
 
 # 4. Run QC
-bash pipeline/02_qc.sh config/test_sample_sheet.tsv data/raw/ results/qc/
+bash pipeline/02_qc.sh data/raw/PBMC_1k/pbmc_1k_v3_fastqs/ results/qc/PBMC_1k/
 
-# 5. Align and quantify
-bash pipeline/03_align.sh config/test_sample_sheet.tsv data/raw/ data/processed/
+# 5. Build STAR genome index (run once, ~45 minutes)
+bash pipeline/03_build_index.sh data/reference/ hg38
 
-# 6. R analysis (GSE182109 published matrix)
+# 6. Align and quantify
+bash pipeline/04_align.sh data/raw/PBMC_1k/pbmc_1k_v3_fastqs/ data/reference/hg38/ data/processed/PBMC_1k/
+
+# 7. R analysis (GSE182109 published matrix)
 # Download GSE182109_RAW.tar from GEO and place in data/processed/
 # Then run analysis scripts in order
 Rscript analysis/01_qc_filtering.R
