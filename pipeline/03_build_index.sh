@@ -54,13 +54,14 @@ echo "This will take approximately 45 minutes..." | tee -a "${LOG_FILE}"
 
 STAR \
     --runMode genomeGenerate \
-    --genomeDir "${INDEX_DIR}" \
-    --genomeFastaFiles "${GENOME_FASTA}" \
-    --sjdbGTFfile "${GTF_FILE}" \
-    --runThreadN 2 \
-    --genomeSAindexNbases 14 \
-    --limitGenomeGenerateRAM 25000000000 \
+    --genomeDir data/reference/hg38/star_index/ \
+    --genomeFastaFiles data/reference/hg38/GRCh38.primary_assembly.genome.fa \
+    --sjdbGTFfile data/reference/hg38/gencode.v44.annotation.gtf \
+    --runThreadN 6 \
+    --limitGenomeGenerateRAM 22000000000 \
     2>&1 | tee -a "${LOG_FILE}"
+
+
 
 # Summary
 echo "Index building completed: $(date)" | tee -a "${LOG_FILE}"
