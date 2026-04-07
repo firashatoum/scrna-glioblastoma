@@ -5,9 +5,10 @@ Full single-cell RNA-seq analysis pipeline for GSE182109 — a 10x Genomics data
 of 44 glioblastoma samples spanning newly diagnosed (ndGBM), recurrent (rGBM),
 and low-grade glioma (LGG) patients.
 
-**Biological question:** How does the immune microenvironment differ between newly
-diagnosed and recurrent GBM? Do immune cell proportions derived from scRNA-seq
-predict survival when deconvolved from TCGA-GBM bulk RNA-seq data?
+**Biological questions:**
+1. How does immune cell composition differ between newly diagnosed and recurrent GBM?
+2. Which immune cell populations are associated with patient survival when projected onto TCGA bulk RNA-seq?
+
 
 ---
 
@@ -23,16 +24,24 @@ This project uses two datasets with clearly separate roles:
 | Biological analysis | GSE182109 GBM | Published count matrix | All Seurat and TCGA analysis |
 
 **Why two datasets?**
-GSE182109 was deposited to SRA as pre-aligned BAM files rather than raw FASTQs.
-This is common practice when authors align reads before submission. STARsolo
-requires raw FASTQs, so the bash pipeline is validated on the 10x PBMC 3k
-dataset — a small, standard FASTQ deposit ideal for end-to-end testing.
-The published count matrix from GEO is used for all biological analysis,
-which is the correct and standard approach for BAM-deposited datasets.
+
+GSE182109 is available in SRA as pre-aligned BAM files rather than raw FASTQs,
+which prevents reprocessing with alignment-based tools such as STARsolo.
+
+To ensure full validation of the preprocessing pipeline, a standard 10x Genomics
+PBMC dataset (raw FASTQs) is used for end-to-end testing of download, QC,
+alignment, and quantification steps.
+
+All downstream biological analyses are performed on the published GSE182109
+count matrix, which is the appropriate and standard approach when only
+preprocessed data are available.
 
 ---
 
 ## Pipeline Overview
+
+All steps are modular, parameterized, and designed for reproducibility
+and future orchestration via Nextflow.
 
 ### Stage 1 — Bash Preprocessing Pipeline
 Validated on 10x PBMC 1k v3. Generic and works on any standard 10x FASTQ deposit.
