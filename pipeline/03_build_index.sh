@@ -69,7 +69,7 @@ STAR \
     --genomeFastaFiles "${GENOME_FASTA}" \
     --sjdbGTFfile "${GTF_FILE}" \
     --runThreadN "${THREADS}" \
-    --limitGenomeGenerateRAM 22000000000 \
+    --limitGenomeGenerateRAM 20000000000 \
     2>&1 | tee -a "${LOG_FILE}"
 
 echo "Index building completed: $(date)" | tee -a "${LOG_FILE}"
