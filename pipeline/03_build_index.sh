@@ -74,7 +74,7 @@ STAR \
     --genomeFastaFiles "${GENOME_FASTA}" \
     --sjdbGTFfile "${GTF_FILE}" \
     --runThreadN "${THREADS}" \
-    --limitGenomeGenerateRAM 20000000000 \
+    --limitGenomeGenerateRAM 14000000000 \
     --genomeSAindexNbases "${SA_INDEX_NBASES}" \
     2>&1 | tee -a "${LOG_FILE}"
 
