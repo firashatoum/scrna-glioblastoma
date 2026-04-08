@@ -4,29 +4,33 @@
 # Builds STAR genome index from reference FASTA and GTF annotation.
 # Run once per genome assembly. Index is reused for all alignment runs.
 #
-# Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads]
+# Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads] [sa_index_nbases]
 #
 # Arguments:
-#   genome_fasta : path to reference genome FASTA (.fa or .fa.gz)
-#   gtf_file     : path to gene annotation GTF (.gtf or .gtf.gz)
-#   index_dir    : where to write the STAR index
-#   threads      : number of threads (optional, default: 4)
+#   genome_fasta     : path to reference genome FASTA (.fa or .fa.gz)
+#   gtf_file         : path to gene annotation GTF (.gtf or .gtf.gz)
+#   index_dir        : where to write the STAR index
+#   threads          : number of threads (optional, default: 4)
+#   sa_index_nbases  : suffix array index size (optional, default: 14)
+#                      reduce to 13 on memory-constrained systems (<32GB RAM)
 #
 # Notes:
 #   - Requires ~30GB disk space for the index
 #   - Takes ~45 minutes on a standard laptop
 #   - Only needs to be run once per genome assembly
 #   - Index is gitignored due to size
+#   - Use sa_index_nbases=13 if STAR is killed during index building (OOM)
 # =============================================================================
 
 set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
-GENOME_FASTA="${1:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads]}"
-GTF_FILE="${2:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads]}"
-INDEX_DIR="${3:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads]}"
+GENOME_FASTA="${1:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads] [sa_index_nbases]}"
+GTF_FILE="${2:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads] [sa_index_nbases]}"
+INDEX_DIR="${3:?Usage: bash 03_build_index.sh <genome_fasta> <gtf_file> <index_dir> [threads] [sa_index_nbases]}"
 THREADS="${4:-4}"
+SA_INDEX_NBASES="${5:-14}"
 
 mkdir -p "${INDEX_DIR}"
 
@@ -58,6 +62,7 @@ echo "Genome FASTA: ${GENOME_FASTA}" | tee -a "${LOG_FILE}"
 echo "GTF file: ${GTF_FILE}" | tee -a "${LOG_FILE}"
 echo "Index directory: ${INDEX_DIR}" | tee -a "${LOG_FILE}"
 echo "Threads: ${THREADS}" | tee -a "${LOG_FILE}"
+echo "SA index nbases: ${SA_INDEX_NBASES}" | tee -a "${LOG_FILE}"
 echo "STAR version: $(STAR --version)" | tee -a "${LOG_FILE}"
 
 echo "Building STAR genome index..." | tee -a "${LOG_FILE}"
@@ -70,6 +75,7 @@ STAR \
     --sjdbGTFfile "${GTF_FILE}" \
     --runThreadN "${THREADS}" \
     --limitGenomeGenerateRAM 20000000000 \
+    --genomeSAindexNbases "${SA_INDEX_NBASES}" \
     2>&1 | tee -a "${LOG_FILE}"
 
 echo "Index building completed: $(date)" | tee -a "${LOG_FILE}"
