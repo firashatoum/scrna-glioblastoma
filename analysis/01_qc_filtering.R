@@ -53,9 +53,9 @@ if (is.na(matrix_dir) || is.na(sample_sheet) || is.na(out_dir) || is.na(project_
 }
 
 # Create output directories
-dir.create(file.path(out_dir, "rds"),     showWarnings = FALSE, recursive = TRUE)
-dir.create(file.path(out_dir, "figures"), showWarnings = FALSE, recursive = TRUE)
-dir.create(file.path(out_dir, "tables"),  showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(out_dir, "rds"),            showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(out_dir, "figures", "01_qc"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(out_dir, "tables",  "01_qc"), showWarnings = FALSE, recursive = TRUE)
 
 # Log parameters
 message("=== 01_qc_filtering.R ===")
@@ -146,7 +146,7 @@ message("Samples successfully loaded: ", length(seurat_list))
 message("Generating per-sample QC plots...")
 
 # Open PDF for per-sample plots
-pdf(file.path(out_dir, "figures", "01_qc_per_sample.pdf"), width = 14, height = 8)
+pdf(file.path(out_dir, "figures", "01_qc", "01_qc_per_sample.pdf"), width = 14, height = 8)
 
 for (sid in names(seurat_list)) {
   
@@ -232,6 +232,70 @@ message("Cells after filtering  : ", cells_after)
 message("Cells removed          : ", cells_removed, 
         " (", round(cells_removed / cells_before * 100, 1), "%)")
 
+# --- Post-filter QC visualization ---------------------------------------------
+message("Generating post-filter QC plots...")
+
+pdf(file.path(out_dir, "figures", "01_qc", "01_qc_merged.pdf"), width = 14, height = 10)
+
+p1 <- VlnPlot(seurat_filtered,
+              features = "nFeature_RNA",
+              group.by = "condition",
+              pt.size  = 0.05) +
+  geom_hline(yintercept = c(min_genes, max_genes),
+             linetype = "dashed", color = "red") +
+  labs(title = "Genes per cell — post filter", x = NULL) +
+  theme(legend.position = "none")
+
+p2 <- VlnPlot(seurat_filtered,
+              features = "nCount_RNA",
+              group.by = "condition",
+              pt.size  = 0.05) +
+  geom_hline(yintercept = min_umi,
+             linetype = "dashed", color = "red") +
+  labs(title = "UMIs per cell — post filter", x = NULL) +
+  theme(legend.position = "none")
+
+p3 <- VlnPlot(seurat_filtered,
+              features = "percent.mt",
+              group.by = "condition",
+              pt.size  = 0.05) +
+  geom_hline(yintercept = max_mt_pct,
+             linetype = "dashed", color = "red") +
+  labs(title = "Mitochondrial % — post filter", x = NULL) +
+  theme(legend.position = "none")
+
+p4 <- FeatureScatter(seurat_filtered,
+                     feature1 = "nCount_RNA",
+                     feature2 = "nFeature_RNA",
+                     group.by = "condition",
+                     pt.size  = 0.3) +
+  labs(title = "UMIs vs Genes — post filter, by condition")
+
+cell_counts <- data.frame(
+  sample_id = seurat_filtered$sample_id,
+  condition = seurat_filtered$condition
+) %>%
+  group_by(sample_id, condition) %>%
+  summarise(n_cells = n(), .groups = "drop") %>%
+  arrange(condition, sample_id)
+
+p5 <- ggplot(cell_counts, aes(x = reorder(sample_id, n_cells),
+                              y = n_cells,
+                              fill = condition)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Cells per sample after filtering",
+       x = NULL, y = "Number of cells") +
+  theme_classic() +
+  theme(axis.text.y = element_text(size = 7))
+
+print((p1 | p2 | p3))
+print(p4)
+print(p5)
+
+dev.off()
+message("Post-filter QC plots saved.")
+
 # --- QC summary table ---------------------------------------------------------
 message("Generating QC summary table...")
 
@@ -274,7 +338,7 @@ qc_summary <- left_join(summary_before, summary_after, by = "sample_id") %>%
 # Save to CSV
 write.csv(
   qc_summary,
-  file      = file.path(out_dir, "tables", "01_qc_summary.csv"),
+  file      = file.path(out_dir, "tables", "01_qc", "01_qc_summary.csv"),
   row.names = FALSE
 )
 
