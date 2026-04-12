@@ -1,0 +1,8 @@
+R package versions for scrna-glioblastoma analysis
+Recorded: 2026-04-12
+R version: 4.5.0
+
+Seurat    5.4.0
+Matrix    1.7.5
+tidyverse 2.0.0
+patchwork 1.3.2

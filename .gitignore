@@ -15,3 +15,6 @@ results/**/*.parquet
 data/reference/
 results/**/multiqc_report_data/
 **/*_log.txt
+results/rds/
+results/**/*.rds
+results/figures/01_qc/01_qc_per_sample.pdf
